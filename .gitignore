@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.azure/
+evidence/*
+!evidence/README.md
+*.local.bicepparam
+what-if.json

@@ -1,0 +1,18 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-bicep@v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: bicep build infra/main.bicep --stdout > /dev/null
+      - run: bicep build infra/subscription/governance.bicep --stdout > /dev/null
+      - run: python -m unittest discover -s tests -v
